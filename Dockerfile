@@ -1,13 +1,13 @@
-FROM fedora 
+FROM fedora:22 
 
 MAINTAINER Avesh Agarwal <avagarwa@redhat.com>
+# updated by goern@redhat.com
 
 ENV container docker
 
-RUN yum -y update; yum -y install etcd; yum clean all
-
-LABEL Version=1.0
-LABEL Vendor="Red Hat"
+RUN dnf update -y && \
+    dnf install -y etcd && \
+    dnf clean all
 
 LABEL INSTALL="docker run --rm --privileged -v /:/host -e HOST=/host -e IMAGE=IMAGE -e NAME=NAME IMAGE /usr/bin/install.sh"
 LABEL UNINSTALL="docker run --rm --privileged -v /:/host -e HOST=/host -e IMAGE=IMAGE -e NAME=NAME IMAGE /usr/bin/uninstall.sh"
